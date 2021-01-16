@@ -6,6 +6,14 @@ resource "google_cloud_run_service" "my-service" {
     spec {
       containers {
         image = "gcr.io/cloudrun/hello"
+        env {
+          name = "PUBLIC_VARIABLE"
+          value = "insecure"
+        }
+        env {
+          name = "PRIVATE_VARIABLE"
+          value = var.secret_variable
+        }
       }
     }
   }
