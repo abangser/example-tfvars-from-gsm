@@ -11,7 +11,7 @@ data "google_secret_manager_secret_version" "secret_variables" {
 
   project = data.google_project.project.number
   secret  = google_secret_manager_secret.secret_variables.secret_id
-  version = 3 # new valid json
+  version = 2 # invalid json
 }
 
 resource "google_secret_manager_secret" "secret_variables" {

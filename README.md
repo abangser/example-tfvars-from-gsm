@@ -414,3 +414,20 @@ can't guarantee that exactly these actions will be performed if
 
 </p>
 </details>
+
+<details>
+<summary>Plan output invalid JSON</summary>
+<p>
+
+```
+example-tfvars-from-gsm# terraform plan
+google_project_service.secretmanager: Refreshing state... [id=core-301515/secretmanager.googleapis.com]
+google_project_service.run: Refreshing state... [id=core-301515/run.googleapis.com]
+google_secret_manager_secret.secret_variables: Refreshing state... [id=projects/436514934743/secrets/secret_variables]
+
+Error: failed to execute "./json_validator.sh": Expecting object: line 3 column 1 (char 40)
+The secret secret_variables is 0.0351562kb and did not parse as valid json
+```
+
+</p>
+</details>
