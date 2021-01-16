@@ -12,7 +12,7 @@ resource "google_cloud_run_service" "my-service" {
         }
         env {
           name = "PRIVATE_VARIABLE"
-          value = local.secret_variables.secret_variable
+          value = data.external.secret_variables.result.secret_variable
         }
       }
     }

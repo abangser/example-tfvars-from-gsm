@@ -340,3 +340,77 @@ Call to function "jsondecode" failed: EOF.
 
 </p>
 </details>
+
+### 5. Use external datasource to parse json secrets
+
+NOTE: This relies on at least v2 and v3 versions of the secrets being added and enabled.
+
+Using the external datasource we parse the json using our own method which allows us to exit in a safe way
+
+:warning: The resource I am using to demo this does not mark these values as sensitive and therefore they show in the plan. This is expected and depends on the resource you are pushing these variables to.
+
+Based on commit: <SHA>
+
+Documentation: https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/data_source
+
+<details>
+<summary>Plan output valid JSON</summary>
+<p>
+
+Note: This is based on the value being changed to [`secrets_datafile_changed.json`](./data_files/secrets_datafile_changed.json)
+
+```
+example-tfvars-from-gsm# terraform plan
+google_project_service.run: Refreshing state... [id=core-301515/run.googleapis.com]
+google_project_service.secretmanager: Refreshing state... [id=core-301515/secretmanager.googleapis.com]
+google_secret_manager_secret.secret_variables: Refreshing state... [id=projects/436514934743/secrets/secret_variables]
+google_cloud_run_service.my-service: Refreshing state... [id=locations/europe-west2/namespaces/core-301515/services/my-service]
+google_cloud_run_service_iam_member.allusers: Refreshing state... [id=v1/projects/core-301515/locations/europe-west2/services/my-service/roles/run.invoker/allusers]
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # google_cloud_run_service.my-service will be updated in-place
+  ~ resource "google_cloud_run_service" "my-service" {
+        id                         = "locations/europe-west2/namespaces/core-301515/services/my-service"
+        name                       = "my-service"
+        # (4 unchanged attributes hidden)
+
+
+      ~ template {
+
+          ~ spec {
+                # (2 unchanged attributes hidden)
+
+              ~ containers {
+                    # (3 unchanged attributes hidden)
+
+                  ~ env {
+                        name  = "PRIVATE_VARIABLE"
+                      ~ value = "super secret" -> "new super secret"
+                    }
+
+
+                    # (3 unchanged blocks hidden)
+                }
+            }
+            # (1 unchanged block hidden)
+        }
+
+        # (2 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
+```
+
+</p>
+</details>
