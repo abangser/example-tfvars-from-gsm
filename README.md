@@ -349,7 +349,7 @@ Using the external datasource we parse the json using our own method which allow
 
 :warning: The resource I am using to demo this does not mark these values as sensitive and therefore they show in the plan. This is expected and depends on the resource you are pushing these variables to.
 
-Based on commit: <SHA>
+Based on commit: [57f6e6b3751f4669648d876e4010d165863e6c2a](https://github.com/abangser/example-tfvars-from-gsm/tree/57f6e6b3751f4669648d876e4010d165863e6c2a)
 
 Documentation: https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/data_source
 
@@ -414,6 +414,8 @@ can't guarantee that exactly these actions will be performed if
 
 </p>
 </details>
+
+Based on commit: [383d3bc711a3420bb8a9f088cb48df2c009f53ee](https://github.com/abangser/example-tfvars-from-gsm/tree/383d3bc711a3420bb8a9f088cb48df2c009f53ee)
 
 <details>
 <summary>Plan output invalid JSON</summary>
