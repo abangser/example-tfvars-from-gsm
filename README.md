@@ -229,3 +229,87 @@ can't guarantee that exactly these actions will be performed if
 
 </p>
 </details>
+
+### 4. Use terraform local to read json from a secret version
+
+NOTE: This relies on at least v1 and v2 versions of the secrets being added and enabled.
+
+Another option is to read secrets from Google Secrets Manager. This requires some setup by either creating the secrets by hand in the UI or in Terraform code.
+
+This is great because now secrets are stored in a safe (secure and durable) datastore with fine grained access permissions as well as versioning to make for safer updates.
+
+:warning: The resource I am using to demo this does not mark these values as sensitive and therefore they show in the plan. This is expected and depends on the resource you are pushing these variables to.
+
+Based on commit: <SHA>
+
+Documentation: https://www.terraform.io/docs/configuration/locals.html
+
+<details>
+<summary>Plan output with valid JSON secret</summary>
+<p>
+
+```
+example-tfvars-from-gsm# terraform apply   
+google_project_service.run: Refreshing state... [id=core-301515/run.googleapis.com]
+google_project_service.secretmanager: Refreshing state... [id=core-301515/secretmanager.googleapis.com]
+google_secret_manager_secret.secret_variables: Refreshing state... [id=projects/436514934743/secrets/secret_variables]
+google_cloud_run_service.my-service: Refreshing state... [id=locations/europe-west2/namespaces/core-301515/services/my-service]
+google_cloud_run_service_iam_member.allusers: Refreshing state... [id=v1/projects/core-301515/locations/europe-west2/services/my-service/roles/run.invoker/allusers]
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # google_cloud_run_service.my-service will be updated in-place
+  ~ resource "google_cloud_run_service" "my-service" {
+        id                         = "locations/europe-west2/namespaces/core-301515/services/my-service"
+        name                       = "my-service"
+        # (4 unchanged attributes hidden)
+
+
+      ~ template {
+
+          ~ spec {
+                # (2 unchanged attributes hidden)
+
+              ~ containers {
+                    # (3 unchanged attributes hidden)
+
+                  ~ env {
+                        name  = "PRIVATE_VARIABLE"
+                      + value = "super secret"
+                    }
+
+
+                    # (3 unchanged blocks hidden)
+                }
+            }
+            # (1 unchanged block hidden)
+        }
+
+        # (2 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 1 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+google_cloud_run_service.my-service: Modifying... [id=locations/europe-west2/namespaces/core-301515/services/my-service]
+google_cloud_run_service.my-service: Still modifying... [id=locations/europe-west2/namespaces/core-301515/services/my-service, 10s elapsed]
+google_cloud_run_service.my-service: Modifications complete after 17s [id=locations/europe-west2/namespaces/core-301515/services/my-service]
+
+Apply complete! Resources: 0 added, 1 changed, 0 destroyed.
+
+Outputs:
+
+url = "https://my-service-6vezczbbrq-nw.a.run.app"
+```
+
+</p>
+</details>
