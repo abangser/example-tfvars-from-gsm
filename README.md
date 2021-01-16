@@ -313,3 +313,30 @@ url = "https://my-service-6vezczbbrq-nw.a.run.app"
 
 </p>
 </details>
+
+However, if you parse a json secret using [`jsondecode`](https://www.terraform.io/docs/configuration/functions/jsondecode.html) and the value is not valid json then the entire secret is printed to the terminal.
+
+Based on commit: <SHA>
+
+<details>
+<summary>Plan output with invalid JSON</summary>
+<p>
+
+```
+example-tfvars-from-gsm# terraform plan
+google_project_service.secretmanager: Refreshing state... [id=core-301515/secretmanager.googleapis.com]
+google_project_service.run: Refreshing state... [id=core-301515/run.googleapis.com]
+google_secret_manager_secret.secret_variables: Refreshing state... [id=projects/436514934743/secrets/secret_variables]
+
+Error: Error in function call
+
+  on secrets.tf line 2, in locals:
+   2:   secret_variables = jsondecode(data.google_secret_manager_secret_version.secret_variables.secret_data)
+    |----------------
+    | data.google_secret_manager_secret_version.secret_variables.secret_data is "{\n    \"secret_variable\": \"super secret\"\n"
+
+Call to function "jsondecode" failed: EOF.
+```
+
+</p>
+</details>
