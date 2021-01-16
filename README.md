@@ -240,7 +240,7 @@ This is great because now secrets are stored in a safe (secure and durable) data
 
 :warning: The resource I am using to demo this does not mark these values as sensitive and therefore they show in the plan. This is expected and depends on the resource you are pushing these variables to.
 
-Based on commit: <SHA>
+Based on commit: [7013a9fdfc9912b2498e0fe12394757a00c97b3c](https://github.com/abangser/example-tfvars-from-gsm/tree/7013a9fdfc9912b2498e0fe12394757a00c97b3c)
 
 Documentation: https://www.terraform.io/docs/configuration/locals.html
 
@@ -316,7 +316,7 @@ url = "https://my-service-6vezczbbrq-nw.a.run.app"
 
 However, if you parse a json secret using [`jsondecode`](https://www.terraform.io/docs/configuration/functions/jsondecode.html) and the value is not valid json then the entire secret is printed to the terminal.
 
-Based on commit: <SHA>
+Based on commit: [f8255a585d0aeb52faa04f814781c919dd00c303](https://github.com/abangser/example-tfvars-from-gsm/tree/f8255a585d0aeb52faa04f814781c919dd00c303)
 
 <details>
 <summary>Plan output with invalid JSON</summary>
