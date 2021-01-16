@@ -20,7 +20,7 @@ Options 1 through 3 are to set a baseline, 4 and beyond are examples for a blog 
 
 The most simple version of secrets management is to enter them as terraform asks on run. This is not repeatable nor scalable and so is often not even a step on most projects journey.
 
-Based on commit: <SHA>
+Based on commit: [d4e174faa3eeb0cad506e82f86dd44d6cbae6140](https://github.com/abangser/example-tfvars-from-gsm/tree/d4e174faa3eeb0cad506e82f86dd44d6cbae6140)
 
 <details>
 <summary>Plan output</summary>
@@ -91,7 +91,7 @@ can't guarantee that exactly these actions will be performed if
 
 Terraform can read directly from environment variables. This is a step up because it does not require manual intervention. But how these environment variables are created, stored, and shared still leaves a lot to be desired.
 
-Based on commit: <SHA>
+Based on commit: [d4e174faa3eeb0cad506e82f86dd44d6cbae6140](https://github.com/abangser/example-tfvars-from-gsm/tree/d4e174faa3eeb0cad506e82f86dd44d6cbae6140)
 
 Documentation: https://www.terraform.io/docs/commands/environment-variables.html
 
@@ -161,7 +161,7 @@ can't guarantee that exactly these actions will be performed if
 
 This is both where we start to get to repeatable and scalable solutions and also where we first hit a security risk. These values are now no more protected than directly putting them in the `terraform.tfvars` file depending on where you store the faile and how it is shared.
 
-Based on commit: <SHA>
+Based on commit: [d4e174faa3eeb0cad506e82f86dd44d6cbae6140](https://github.com/abangser/example-tfvars-from-gsm/tree/d4e174faa3eeb0cad506e82f86dd44d6cbae6140)
 
 Documentation: https://www.terraform.io/docs/configuration/variables.html#variable-definitions-tfvars-files
 
